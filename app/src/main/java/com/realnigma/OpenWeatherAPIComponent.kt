@@ -6,5 +6,5 @@ import javax.inject.Singleton
 @Singleton
 @Component(modules = arrayOf(OpenWeatherAPIModule::class))
 interface OpenWeatherAPIComponent {
-    //fun inject(presenter: MainPresenter);
+    fun inject(presenter: MainPresenter)
 }
