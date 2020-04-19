@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">WeatherApp</string>
+    <string name="menu_search_title">Поиск</string>
+    <string name="menu_search_hint">Введите название города</string>
+    <string name="empty_state_message">Пусто.</string>
+    <string name="city_not_found_toast_message">Город не найден</string>
+    <string name="connection_error_message">Проблемы с соединением</string>
+    <string name="weather_icon_description">Weather Icon</string>
 </resources>
