@@ -19,6 +19,8 @@ class MainActivity : AppCompatActivity(), MainView {
         injectDI()
         setContentView(R.layout.activity_main)
         initializeForecastList()
+        //getForecast("norilsk")
+        //getCurrentWeather("norilsk")
     }
 
     override fun showSpinner() {
@@ -46,6 +48,9 @@ class MainActivity : AppCompatActivity(), MainView {
         emptyStateText.visibility = View.VISIBLE
     }
 
+    override fun updateWeather(weather: ForecastItemViewModel) {
+        forecastList.adapter?.safeCast<CurrentWeatherAdapter>()?.addCurrentWeather(weather)
+    }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -58,7 +63,8 @@ class MainActivity : AppCompatActivity(), MainView {
             searchMenuItem.queryHint = getString(R.string.menu_search_hint)
             searchMenuItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
-                    getForecast(query)
+                    //getForecast(query)
+                    getCurrentWeather(query)
                     menuItem.collapseActionView()
                     return false
                 }
@@ -72,7 +78,9 @@ class MainActivity : AppCompatActivity(), MainView {
         return true
     }
 
-    private fun getForecast(query: String) = presenter.getForecastForSevenDays(query)
+    private fun getForecast(query: String) = presenter.getForecastForFiveDays(query)
+
+    private fun getCurrentWeather(query: String) = presenter.getCurrentWeather(query)
 
     inline fun <reified T> Any.safeCast() = this as? T
 
@@ -91,7 +99,8 @@ class MainActivity : AppCompatActivity(), MainView {
     private fun initializeForecastList() {
         forecastList.apply {
             layoutManager = LinearLayoutManager(context)
-            adapter = ForecastAdapter()
+            //adapter = ForecastAdapter()
+            adapter = CurrentWeatherAdapter()
         }
     }
 

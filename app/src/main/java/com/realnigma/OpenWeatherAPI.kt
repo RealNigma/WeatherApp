@@ -12,4 +12,7 @@ interface OpenWeatherAPI {
     companion object {
         val BASE_URL = "http://api.openweathermap.org/data/2.5/"
     }
+
+    @GET("weather")
+    fun currentWeather(@Query("q") cityName : String) : Call<WeatherResponse>
 }

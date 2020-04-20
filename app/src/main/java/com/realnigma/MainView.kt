@@ -5,4 +5,5 @@ interface MainView {
     fun hideSpinner()
     fun updateForecast(forecasts: List<ForecastItemViewModel>)
     fun showErrorToast(errorType: ErrorTypes)
+    fun updateWeather(weather : ForecastItemViewModel)
 }
