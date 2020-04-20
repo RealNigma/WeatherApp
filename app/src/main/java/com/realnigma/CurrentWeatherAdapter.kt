@@ -14,22 +14,22 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
-class CurrentWeatherAdapter() : RecyclerView.Adapter<CurrentWeatherAdapter.ForecastViewHolder>() {
+class CurrentWeatherAdapter() : RecyclerView.Adapter<CurrentWeatherAdapter.CurrentWeatherViewHolder>() {
 
-    var currentWeatherList = mutableListOf<ForecastItemViewModel>()
+    var currentWeatherList = mutableListOf<CurrentWeatherItemViewModel>()
 
-    fun addCurrentWeather(item : ForecastItemViewModel){
+    fun addCurrentWeather(item : CurrentWeatherItemViewModel){
         currentWeatherList.clear()
         currentWeatherList.add(item)
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ForecastViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrentWeatherViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.currentweather_item, parent, false)
-        return ForecastViewHolder(view)
+        return CurrentWeatherViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CurrentWeatherViewHolder, position: Int) {
         currentWeatherList[position].let {
             holder.bind(forecastElement = it)
         }
@@ -39,14 +39,22 @@ class CurrentWeatherAdapter() : RecyclerView.Adapter<CurrentWeatherAdapter.Forec
         return currentWeatherList.size
     }
 
-    class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class CurrentWeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(forecastElement : ForecastItemViewModel) {
-            itemView.degreeText.text = "${forecastElement.temp} °C"
+        fun bind(forecastElement : CurrentWeatherItemViewModel) {
+            val temp : Int = forecastElement.temp
+            val sign : String
+            if (temp >= 0) {
+                sign = "+"
+            }
+            else sign = "-"
+            itemView.degreeText.text = sign + "${forecastElement.temp}°C"
             itemView.descriptionText.text = "${forecastElement.description}"
             itemView.dateText.text = getDate(forecastElement.date)
+            itemView.cityName.text = forecastElement.city
+            itemView.feelsLikeText.text = "Ощущается как: ${forecastElement.feelsLike}°C"
             Glide.with(itemView.context)
-                .load("http://openweathermap.org/img/w/${forecastElement.icon}.png")
+                .load("http://openweathermap.org/img/wn/${forecastElement.icon}@2x.png")
                 .into(itemView.weatherIcon)
         }
 

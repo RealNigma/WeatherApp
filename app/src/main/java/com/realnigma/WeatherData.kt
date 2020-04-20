@@ -2,10 +2,10 @@ package com.realnigma
 
 import com.google.gson.annotations.SerializedName
 
-data class WeatherData (@SerializedName("temp") var temperature: Double,
-                        @SerializedName("feels_like") var feelsLike: Double,
-                        @SerializedName("temp_min") var minTemperature: Double,
-                        @SerializedName("temp_max") var maxTemperature: Double,
+data class WeatherData (@SerializedName("temp") var temperature: Int,
+                        @SerializedName("feels_like") var feelsLike: Int,
+                        @SerializedName("temp_min") var minTemperature: Int,
+                        @SerializedName("temp_max") var maxTemperature: Int,
                         @SerializedName("pressure") var pressure : Double,
                         @SerializedName("sea_level") var seaLevel : Double,
                         @SerializedName("grnd_level") var groundLevel : Double,

@@ -41,7 +41,7 @@ class ForecastAdapter() : RecyclerView.Adapter<ForecastAdapter.ForecastViewHolde
             itemView.degreeText.text = "${forecastElement.temp} °C ${forecastElement.description}"
             itemView.dateText.text = getDate(forecastElement.date)
             Glide.with(itemView.context)
-                .load("http://openweathermap.org/img/w/${forecastElement.icon}.png")
+                .load("http://openweathermap.org/img/wn/${forecastElement.icon}.png")
                 .into(itemView.weatherIcon)
         }
 

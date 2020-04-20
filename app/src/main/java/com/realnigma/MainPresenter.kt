@@ -1,5 +1,6 @@
 package com.realnigma
 
+import kotlinx.android.synthetic.main.currentweather_item.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,7 +50,7 @@ class MainPresenter(val view : MainView) {
         val forecasts = mutableListOf<ForecastItemViewModel>()
         for (forecastDetail : ForecastDetail in weatherResponse.forecast) {
             val temp = forecastDetail.weatherData.temperature
-            val forecastItem = ForecastItemViewModel(temp = temp.toString(),
+            val forecastItem = ForecastItemViewModel(temp = temp.toInt(),
                 date = forecastDetail.date,
                 icon = forecastDetail.description[0].icon,
                 description = forecastDetail.description[0].description)
@@ -61,9 +62,12 @@ class MainPresenter(val view : MainView) {
     private fun currentWeather(weatherResponse: WeatherResponse){
        val weatherDetail : CurrentWeatherDetail = weatherResponse.currentWeather
         val weatherDescription : List<WeatherDescription> = weatherResponse.weatherDescription
-        val weatherItem = ForecastItemViewModel( temp = weatherDetail.temp.toString(),
+        val weatherItem = CurrentWeatherItemViewModel( temp = weatherDetail.temp.toInt(),
                                                  icon = weatherDescription[0].icon,
-                                                 description = weatherDescription[0].description
+                                                 description = weatherDescription[0].description,
+                                                 city = weatherResponse.cityName,
+                                                 date = weatherResponse.date,
+                                                feelsLike = weatherDetail.feelsLike.toInt()
                                                 )
         view.updateWeather(weatherItem)
 

@@ -3,25 +3,45 @@ package com.realnigma
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), MainView {
+ class MainActivity : AppCompatActivity(), MainView {
 
     private val presenter = MainPresenter(this)
+    private var cityName : String? = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //supportActionBar?.setDisplayShowTitleEnabled(false)
+
         injectDI()
         setContentView(R.layout.activity_main)
         initializeForecastList()
-        //getForecast("norilsk")
-        //getCurrentWeather("norilsk")
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        val city = cityName
+        outState.putString("cityName", city)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        val city : String? = savedInstanceState.getString("cityName")
+        if  (city != null) {
+            cityName = city
+            getCurrentWeather(city)
+        }
+    }
+
 
     override fun showSpinner() {
         forecastList.visibility = View.GONE
@@ -48,7 +68,7 @@ class MainActivity : AppCompatActivity(), MainView {
         emptyStateText.visibility = View.VISIBLE
     }
 
-    override fun updateWeather(weather: ForecastItemViewModel) {
+    override fun updateWeather(weather: CurrentWeatherItemViewModel) {
         forecastList.adapter?.safeCast<CurrentWeatherAdapter>()?.addCurrentWeather(weather)
     }
 
@@ -61,10 +81,13 @@ class MainActivity : AppCompatActivity(), MainView {
 
         if (searchMenuItem is SearchView) {
             searchMenuItem.queryHint = getString(R.string.menu_search_hint)
+            searchMenuItem.setQuery(cityName, false)
+            searchMenuItem.onActionViewExpanded()
             searchMenuItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
                     //getForecast(query)
                     getCurrentWeather(query)
+                    cityName = query
                     menuItem.collapseActionView()
                     return false
                 }
