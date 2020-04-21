@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.SearchView
+import android.widget.TabHost
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -23,13 +24,31 @@ import kotlinx.android.synthetic.main.activity_main.*
 
         injectDI()
         setContentView(R.layout.activity_main)
+        initializeTabHost()
+        initializeCurrentWeatherList()
         initializeForecastList()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
+     private fun initializeTabHost() {
+         if (tabHost!= null) {
+             tabHost.setup()
+             var spec = tabHost.newTabSpec("Текущая погода")
+             spec.setContent(R.id.weatherTab)
+             spec.setIndicator("Текущая погода")
+             tabHost.addTab(spec)
+
+             spec = tabHost.newTabSpec("5 дней")
+             spec.setContent(R.id.forecastTab)
+             spec.setIndicator("прогноз на 5 дней")
+             tabHost.addTab(spec)
+         }
+     }
+
+     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         val city = cityName
         outState.putString("cityName", city)
+         outState.putInt("currentTab", tabHost.currentTab)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
@@ -38,19 +57,22 @@ import kotlinx.android.synthetic.main.activity_main.*
         val city : String? = savedInstanceState.getString("cityName")
         if  (city != null) {
             cityName = city
+            tabHost.currentTab = savedInstanceState.getInt("currentTab")
             getCurrentWeather(city)
+            getForecast(city)
         }
     }
 
-
     override fun showSpinner() {
         forecastList.visibility = View.GONE
+        currentWeatherList.visibility = View.GONE
         emptyStateText.visibility = View.GONE
         loadingSpinner.visibility = View.VISIBLE
     }
 
     override fun hideSpinner() {
         forecastList.visibility = View.VISIBLE
+        currentWeatherList.visibility = View.VISIBLE
         loadingSpinner.visibility = View.GONE
     }
 
@@ -69,37 +91,36 @@ import kotlinx.android.synthetic.main.activity_main.*
     }
 
     override fun updateWeather(weather: CurrentWeatherItemViewModel) {
-        forecastList.adapter?.safeCast<CurrentWeatherAdapter>()?.addCurrentWeather(weather)
+        currentWeatherList.adapter?.safeCast<CurrentWeatherAdapter>()?.addCurrentWeather(weather)
     }
+     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+         menuInflater.inflate(R.menu.main_page_menu, menu)
 
+         val menuItem = menu?.findItem(R.id.search_button)
+         val searchMenuItem = menuItem?.actionView
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main_page_menu, menu)
+         if (searchMenuItem is SearchView) {
+             searchMenuItem.queryHint = getString(R.string.menu_search_hint)
+             searchMenuItem.setQuery(cityName, false)
+            // searchMenuItem.onActionViewExpanded()
+             searchMenuItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+                 override fun onQueryTextSubmit(query: String): Boolean {
+                     getCurrentWeather(query)
+                     getForecast(query)
+                     cityName = query
+                     menuItem.collapseActionView()
+                     return false
+                 }
 
-        val menuItem = menu?.findItem(R.id.search_button)
-        val searchMenuItem = menuItem?.actionView
+                 override fun onQueryTextChange(newText: String?): Boolean {
+                     return false
+                 }
 
-        if (searchMenuItem is SearchView) {
-            searchMenuItem.queryHint = getString(R.string.menu_search_hint)
-            searchMenuItem.setQuery(cityName, false)
-            searchMenuItem.onActionViewExpanded()
-            searchMenuItem.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-                override fun onQueryTextSubmit(query: String): Boolean {
-                    //getForecast(query)
-                    getCurrentWeather(query)
-                    cityName = query
-                    menuItem.collapseActionView()
-                    return false
-                }
+             })
+         }
+         return true
+     }
 
-                override fun onQueryTextChange(newText: String?): Boolean {
-                    return false
-                }
-
-            })
-        }
-        return true
-    }
 
     private fun getForecast(query: String) = presenter.getForecastForFiveDays(query)
 
@@ -119,11 +140,17 @@ import kotlinx.android.synthetic.main.activity_main.*
             .inject(presenter)
     }
 
+     private fun initializeCurrentWeatherList() {
+         currentWeatherList.apply {
+             layoutManager = LinearLayoutManager(context)
+             adapter = CurrentWeatherAdapter()
+         }
+     }
+
     private fun initializeForecastList() {
         forecastList.apply {
             layoutManager = LinearLayoutManager(context)
-            //adapter = ForecastAdapter()
-            adapter = CurrentWeatherAdapter()
+            adapter = ForecastAdapter()
         }
     }
 

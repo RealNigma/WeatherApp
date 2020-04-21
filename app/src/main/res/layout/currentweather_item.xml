@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="8dp"
     android:layout_marginTop="8dp"
-    android:layout_marginRight="8dp">
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -32,15 +33,15 @@
             android:layout_centerHorizontal="true"
             android:textSize="24sp"
             android:visibility="visible"
-            tools:text="Moscow" />
+            tools:text="Норильск" />
 
         <TextView
             android:id="@+id/feelsLikeText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/degreeText"
             android:layout_centerHorizontal="true"
-            tools:text="Ощущается как: -64"
-            android:layout_below="@id/degreeText"/>
+            tools:text="Ощущается как: -64°C" />
 
         <TextView
             android:id="@+id/degreeText"
@@ -51,7 +52,7 @@
             android:layout_centerHorizontal="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Large"
             android:textSize="44sp"
-            tools:text="-40 °C" />
+            tools:text="-40°C" />
 
         <ImageView
             android:id="@+id/weatherIcon"
@@ -71,6 +72,34 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
             android:textSize="24sp"
             tools:text="Пасмурно" />
+
+        <TextView
+            android:id="@+id/humidityText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/descriptionText"
+            tools:text="Влажность: 100%" />
+
+        <TextView
+            android:id="@+id/pressureText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/humidityText"
+            tools:text="Давление: 770 мм рт. ст."/>
+
+        <TextView
+            android:id="@+id/minTempText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pressureText"
+            tools:text="Мин. температура: -64°C"/>
+
+        <TextView
+            android:id="@+id/maxTempText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/minTempText"
+            tools:text="Макс. температура: -40°C" />
 
     </RelativeLayout>
 

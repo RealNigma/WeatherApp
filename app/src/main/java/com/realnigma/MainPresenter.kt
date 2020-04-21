@@ -62,12 +62,16 @@ class MainPresenter(val view : MainView) {
     private fun currentWeather(weatherResponse: WeatherResponse){
        val weatherDetail : CurrentWeatherDetail = weatherResponse.currentWeather
         val weatherDescription : List<WeatherDescription> = weatherResponse.weatherDescription
-        val weatherItem = CurrentWeatherItemViewModel( temp = weatherDetail.temp.toInt(),
-                                                 icon = weatherDescription[0].icon,
-                                                 description = weatherDescription[0].description,
-                                                 city = weatherResponse.cityName,
-                                                 date = weatherResponse.date,
-                                                feelsLike = weatherDetail.feelsLike.toInt()
+        val weatherItem = CurrentWeatherItemViewModel(  temp = weatherDetail.temp.toInt(),
+                                                        icon = weatherDescription[0].icon,
+                                                        description = weatherDescription[0].description,
+                                                        city = weatherResponse.cityName,
+                                                        date = weatherResponse.date,
+                                                        feelsLike = weatherDetail.feelsLike.toInt(),
+                                                        humidity = weatherDetail.humidity.toInt(),
+                                                        pressure = weatherDetail.pressure.toInt(),
+                                                        minTemp = weatherDetail.minTemp.toInt(),
+                                                        maxTemp = weatherDetail.maxTemp.toInt()
                                                 )
         view.updateWeather(weatherItem)
 
