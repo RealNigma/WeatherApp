@@ -17,6 +17,7 @@ class MainPresenter(val view : MainView) {
                 response.body()?.let {
                     createListForView(it)
                     view.hideSpinner()
+                    view.saveCityName()
                 } ?: view.showErrorToast(ErrorTypes.NO_RESULT_FOUND)
             }
 
@@ -35,6 +36,7 @@ class MainPresenter(val view : MainView) {
                 response.body()?.let {
                     currentWeather(it)
                     view.hideSpinner()
+                    view.saveCityName()
                 } ?: view.showErrorToast(ErrorTypes.NO_RESULT_FOUND)
             }
 

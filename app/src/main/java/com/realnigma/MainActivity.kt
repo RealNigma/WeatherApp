@@ -1,35 +1,53 @@
 package com.realnigma
 
 import android.app.Activity
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.view.Menu
-import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
 import android.widget.SearchView
-import android.widget.TabHost
 import android.widget.Toast
+import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.forecast_list_item.*
 
- class MainActivity : AppCompatActivity(), MainView {
+class MainActivity : AppCompatActivity(), MainView {
 
-    private val presenter = MainPresenter(this)
-    private var cityName : String? = ""
+     private val presenter = MainPresenter(this)
+     private var cityName : String? = null
+     private var privateMode = 0
+     private val prefName = "savedCityName"
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //supportActionBar?.setDisplayShowTitleEnabled(false)
-
         injectDI()
         setContentView(R.layout.activity_main)
         initializeTabHost()
         initializeCurrentWeatherList()
         initializeForecastList()
+        loadCityName()
+        initializeSwipeListener()
     }
 
-     private fun initializeTabHost() {
+    private fun initializeSwipeListener() {
+        currentWeatherList.setOnTouchListener(object : OnSwipeTouchListener(this@MainActivity) {
+            override fun onSwipeLeft() {
+                tabHost.currentTab = 1
+            }
+        })
+
+        forecastList.setOnTouchListener(object : OnSwipeTouchListener(this@MainActivity) {
+            override fun onSwipeRight() {
+                tabHost.currentTab = 0
+            }
+        })
+    }
+
+    private fun initializeTabHost() {
          if (tabHost!= null) {
              tabHost.setup()
              var spec = tabHost.newTabSpec("Текущая погода")
@@ -153,6 +171,23 @@ import kotlinx.android.synthetic.main.activity_main.*
             adapter = ForecastAdapter()
         }
     }
+
+    override fun saveCityName() {
+        val sharedPref: SharedPreferences = getSharedPreferences(prefName, privateMode)
+        val editor = sharedPref.edit()
+        editor.putString(prefName, cityName)
+        editor.apply()
+    }
+
+    private fun loadCityName() {
+        val sharedPref: SharedPreferences = getSharedPreferences(prefName, privateMode) ?: return
+        cityName = sharedPref.getString(prefName,null)
+        cityName?.let { getCurrentWeather(it) }
+        cityName?.let { getForecast(it) }
+    }
+
+
+
 
 
 

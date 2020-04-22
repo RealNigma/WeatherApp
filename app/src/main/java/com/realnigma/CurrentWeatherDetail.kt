@@ -9,6 +9,5 @@ data class CurrentWeatherDetail(@SerializedName("dt") var  date: Long,
                                 @SerializedName("pressure") var pressure : Double,
                                 @SerializedName("humidity") var humidity : Double,
                                 @SerializedName("temp_min") var minTemp : Double,
-                                @SerializedName("temp_max") var maxTemp : Double,
-                                @SerializedName("speed") var wind : Double
+                                @SerializedName("temp_max") var maxTemp : Double
                                 )

@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#00FFFFFF"
     app:contentInsetLeft="0dp"
     app:contentInsetStart="0dp"
     tools:context=".MainActivity">
@@ -53,6 +55,7 @@
                         android:id="@+id/forecastList"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:scrollbars="vertical"
                         android:visibility="gone" />
                 </LinearLayout>
 
@@ -72,6 +75,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="@string/empty_state_message" />
+        android:layout_margin="8dp"
+        android:gravity="center"
+        android:text="@string/empty_state_message"
+        android:textSize="16sp" />
 
 </FrameLayout>

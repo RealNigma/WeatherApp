@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.currentweather_item.view.*
-import kotlinx.android.synthetic.main.forecast_list_item.view.*
 import kotlinx.android.synthetic.main.forecast_list_item.view.dateText
 import kotlinx.android.synthetic.main.forecast_list_item.view.degreeText
 import kotlinx.android.synthetic.main.forecast_list_item.view.weatherIcon
@@ -32,7 +31,7 @@ class CurrentWeatherAdapter() : RecyclerView.Adapter<CurrentWeatherAdapter.Curre
 
     override fun onBindViewHolder(holder: CurrentWeatherViewHolder, position: Int) {
         currentWeatherList[position].let {
-            holder.bind(forecastElement = it)
+            holder.bind(currentWeatherElement = it)
         }
     }
 
@@ -42,26 +41,26 @@ class CurrentWeatherAdapter() : RecyclerView.Adapter<CurrentWeatherAdapter.Curre
 
     class CurrentWeatherViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        fun bind(forecastElement : CurrentWeatherItemViewModel) {
-            var sign: String = defineDegreeSign(forecastElement.temp)
-            itemView.degreeText.text = sign + "${forecastElement.temp}°C"
+        fun bind(currentWeatherElement : CurrentWeatherItemViewModel) {
+            var sign: String = defineDegreeSign(currentWeatherElement.temp)
+            itemView.degreeText.text = sign + "${currentWeatherElement.temp}°C"
 
-            itemView.descriptionText.text = "${forecastElement.description}"
-            itemView.dateText.text = getDate(forecastElement.date)
-            itemView.cityName.text = forecastElement.city
-            sign = defineDegreeSign(forecastElement.feelsLike)
-            itemView.feelsLikeText.text = "Ощущается как: ${sign + forecastElement.feelsLike}°C"
-            itemView.humidityText.text = "Влажность: ${forecastElement.humidity}%"
+            itemView.descriptionText.text = "${currentWeatherElement.description}"
+            itemView.dateText.text = getDate(currentWeatherElement.date)
+            itemView.cityName.text = currentWeatherElement.city
+            sign = defineDegreeSign(currentWeatherElement.feelsLike)
+            itemView.feelsLikeText.text = "Ощущается как: ${sign + currentWeatherElement.feelsLike}°C"
+            itemView.humidityText.text = "Влажность: ${currentWeatherElement.humidity}%"
 
-            val pressure = ConvertPressure(forecastElement.pressure)
+            val pressure = ConvertPressure(currentWeatherElement.pressure)
             itemView.pressureText.text = "Давление: ${pressure} мм рт. ст."
 
-            sign = defineDegreeSign(forecastElement.minTemp)
-            itemView.minTempText.text = "Мин. температура: ${sign+forecastElement.minTemp}°C"
-            sign = defineDegreeSign(forecastElement.maxTemp)
-            itemView.maxTempText.text = "Макс. температура: ${sign+forecastElement.maxTemp}°C"
+            sign = defineDegreeSign(currentWeatherElement.minTemp)
+            itemView.minTempText.text = "Мин. температура: ${sign+currentWeatherElement.minTemp}°C"
+            sign = defineDegreeSign(currentWeatherElement.maxTemp)
+            itemView.maxTempText.text = "Макс. температура: ${sign+currentWeatherElement.maxTemp}°C"
             Glide.with(itemView.context)
-                .load("http://openweathermap.org/img/wn/${forecastElement.icon}@2x.png")
+                .load("http://openweathermap.org/img/wn/${currentWeatherElement.icon}@2x.png")
                 .into(itemView.weatherIcon)
         }
 

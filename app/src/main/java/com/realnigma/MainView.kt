@@ -6,4 +6,5 @@ interface MainView {
     fun updateForecast(forecasts: List<ForecastItemViewModel>)
     fun showErrorToast(errorType: ErrorTypes)
     fun updateWeather(weather : CurrentWeatherItemViewModel)
+    fun saveCityName()
 }

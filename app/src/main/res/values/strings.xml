@@ -2,12 +2,13 @@
     <string name="app_name">WeatherApp</string>
     <string name="menu_search_title">Поиск</string>
     <string name="menu_search_hint">Поиск города</string>
-    <string name="empty_state_message">Введите название города.</string>
+    <string name="empty_state_message">Введите название города, нажав на иконку поиска</string>
     <string name="city_not_found_toast_message">Город не найден</string>
     <string name="connection_error_message">Проблемы с соединением</string>
     <string name="weather_icon_description">Weather Icon</string>
-    <string name="max_temp">Максимальная температура: </string>
-    <string name="min_temp">Минимальная температура: </string>
-    <string name="humidity">Влажность: </string>
-    <string name="pressure">Давление: </string>
+    <string name="temp">°C</string>
+    <string name="max_temp">Максимальная температура: %d°C</string>
+    <string name="min_temp">Минимальная температура: %d°C</string>
+    <string name="humidity">Влажность: %s%</string>
+    <string name="pressure">Давление: %d мм рт. ст.</string>
 </resources>

@@ -38,7 +38,8 @@ class ForecastAdapter() : RecyclerView.Adapter<ForecastAdapter.ForecastViewHolde
     class ForecastViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(forecastElement : ForecastItemViewModel) {
-            itemView.degreeText.text = "${forecastElement.temp}°C ${forecastElement.description}"
+            itemView.degreeText.text = "${forecastElement.temp}°C"
+            itemView.description.text =  "${forecastElement.description}"
             itemView.dateText.text = getDate(forecastElement.date)
             Glide.with(itemView.context)
                 .load("http://openweathermap.org/img/wn/${forecastElement.icon}.png")
@@ -46,7 +47,7 @@ class ForecastAdapter() : RecyclerView.Adapter<ForecastAdapter.ForecastViewHolde
         }
 
         private fun  getDate(date: Long): String {
-            val timeFormatter = SimpleDateFormat("HH:mm dd.MM.yyyy")
+            val timeFormatter = SimpleDateFormat("HH:mm, EE")
             return timeFormatter.format(Date(date*1000L))
         }
 
