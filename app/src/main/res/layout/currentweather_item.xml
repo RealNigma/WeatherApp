@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="false"
             android:layout_centerHorizontal="true"
-            android:textSize="24sp"
+            android:layout_below="@id/dateText"
+            android:textSize="26sp"
             android:visibility="visible"
             tools:text="Норильск" />
 
