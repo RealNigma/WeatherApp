@@ -10,6 +10,9 @@ class MainPresenter(val view : MainView) {
     @Inject lateinit var api : OpenWeatherAPI
 
     fun getForecastForFiveDays(cityName : String) {
+        if (BuildConfig.OPEN_WEATHER_API_KEY == "YOUR_API_KEY") {
+            return
+        }
         view.showSpinner()
         api.dailyForecast(cityName).enqueue(object : Callback<WeatherResponse> {
 
@@ -29,6 +32,11 @@ class MainPresenter(val view : MainView) {
     }
 
     fun getCurrentWeather(cityName : String) {
+        if (BuildConfig.OPEN_WEATHER_API_KEY == "YOUR_API_KEY") {
+            view.showErrorToast(ErrorTypes.MISSING_API_KEY)
+            return
+        }
+
         view.showSpinner()
         api.currentWeather(cityName).enqueue(object : Callback<WeatherResponse> {
 

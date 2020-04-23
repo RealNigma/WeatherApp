@@ -103,6 +103,7 @@ class MainActivity : AppCompatActivity(), MainView {
         when (errorType) {
             ErrorTypes.CALL_ERROR -> toast(getString(R.string.connection_error_message))
             ErrorTypes.NO_RESULT_FOUND -> toast(getString(R.string.city_not_found_toast_message))
+            ErrorTypes.MISSING_API_KEY -> toast(getString(R.string.api_key_not_found_error_message))
         }
         loadingSpinner.visibility = View.GONE
         emptyStateText.visibility = View.VISIBLE

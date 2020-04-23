@@ -4,6 +4,7 @@
     <string name="menu_search_hint">Поиск города</string>
     <string name="empty_state_message">Введите название города, нажав на иконку поиска</string>
     <string name="city_not_found_toast_message">Город не найден</string>
+    <string name="api_key_not_found_error_message">Добавьте API_KEY в gradle.properties</string>
     <string name="connection_error_message">Проблемы с соединением</string>
     <string name="weather_icon_description">Weather Icon</string>
     <string name="temp">°C</string>
