@@ -40,7 +40,7 @@ class ForecastAdapter() : RecyclerView.Adapter<ForecastAdapter.ForecastViewHolde
         fun bind(forecastElement : ForecastItemViewModel) {
             itemView.degreeText.text = "${forecastElement.temp}°C"
             itemView.description.text =  "${forecastElement.description}"
-            itemView.dateText.text = getDate(forecastElement.date)
+            itemView.dateText.text = getDate(forecastElement.date+forecastElement.timezone)
             Glide.with(itemView.context)
                 .load("http://openweathermap.org/img/wn/${forecastElement.icon}.png")
                 .into(itemView.weatherIcon)

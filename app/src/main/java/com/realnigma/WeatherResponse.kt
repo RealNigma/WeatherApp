@@ -7,7 +7,11 @@ data class WeatherResponse (@SerializedName("city") var city : City,
                             @SerializedName("main") var currentWeather : CurrentWeatherDetail,
                             @SerializedName("weather") var weatherDescription: List<WeatherDescription>,
                             @SerializedName("name") var cityName : String,
-                            @SerializedName("dt") var date : Long)
+                            @SerializedName("dt") var date : Long,
+                            @SerializedName("timezone") var timezone : Long,
+                            @SerializedName("wind") var wind : WindDetail,
+                            @SerializedName("sys") var sunData : SunData
+)
 
 
 

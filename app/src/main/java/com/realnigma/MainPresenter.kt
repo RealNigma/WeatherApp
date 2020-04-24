@@ -62,6 +62,7 @@ class MainPresenter(val view : MainView) {
             val temp = forecastDetail.weatherData.temperature
             val forecastItem = ForecastItemViewModel(temp = temp.toInt(),
                 date = forecastDetail.date,
+                timezone = weatherResponse.city.timezone,
                 icon = forecastDetail.description[0].icon,
                 description = forecastDetail.description[0].description)
             forecasts.add(forecastItem)
@@ -77,11 +78,15 @@ class MainPresenter(val view : MainView) {
                                                         description = weatherDescription[0].description,
                                                         city = weatherResponse.cityName,
                                                         date = weatherResponse.date,
+                                                        timezone = weatherResponse.timezone,
                                                         feelsLike = weatherDetail.feelsLike.toInt(),
                                                         humidity = weatherDetail.humidity.toInt(),
                                                         pressure = weatherDetail.pressure.toInt(),
                                                         minTemp = weatherDetail.minTemp.toInt(),
-                                                        maxTemp = weatherDetail.maxTemp.toInt()
+                                                        maxTemp = weatherDetail.maxTemp.toInt(),
+                                                        windSpeed = weatherResponse.wind.speed.toInt(),
+                                                        sunrise = weatherResponse.sunData.sunrise,
+                                                        sunset = weatherResponse.sunData.sunset
                                                 )
         view.updateWeather(weatherItem)
 

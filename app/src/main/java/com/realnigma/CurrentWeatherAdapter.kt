@@ -51,6 +51,7 @@ class CurrentWeatherAdapter() : RecyclerView.Adapter<CurrentWeatherAdapter.Curre
             sign = defineDegreeSign(currentWeatherElement.feelsLike)
             itemView.feelsLikeText.text = "Ощущается как: ${sign + currentWeatherElement.feelsLike}°C"
             itemView.humidityText.text = "Влажность: ${currentWeatherElement.humidity}%"
+            itemView.windText.text = "Ветер: ${currentWeatherElement.windSpeed} м/с"
 
             val pressure = ConvertPressure(currentWeatherElement.pressure)
             itemView.pressureText.text = "Давление: ${pressure} мм рт. ст."
@@ -59,6 +60,12 @@ class CurrentWeatherAdapter() : RecyclerView.Adapter<CurrentWeatherAdapter.Curre
             itemView.minTempText.text = "Мин. температура: ${sign+currentWeatherElement.minTemp}°C"
             sign = defineDegreeSign(currentWeatherElement.maxTemp)
             itemView.maxTempText.text = "Макс. температура: ${sign+currentWeatherElement.maxTemp}°C"
+
+            val timezone : Long = currentWeatherElement.timezone
+            itemView.sunriseText.text = "Восход: ${getTime(currentWeatherElement.sunrise+timezone)}"
+            itemView.sunsetText.text = "Закат: ${getTime(currentWeatherElement.sunset+timezone)}"
+
+
             Glide.with(itemView.context)
                 .load("http://openweathermap.org/img/wn/${currentWeatherElement.icon}@2x.png")
                 .into(itemView.weatherIcon)
@@ -66,7 +73,7 @@ class CurrentWeatherAdapter() : RecyclerView.Adapter<CurrentWeatherAdapter.Curre
 
         private fun defineDegreeSign(temp : Int): String {
             val sign: String
-            if (temp >= 0) {
+            if (temp > 0) {
                 sign = "+"
             } else sign = ""
             return sign
@@ -83,6 +90,10 @@ class CurrentWeatherAdapter() : RecyclerView.Adapter<CurrentWeatherAdapter.Curre
             return timeFormatter.format(Date(date*1000L))
         }
 
+        private fun  getTime(date: Long): String {
+            val timeFormatter = SimpleDateFormat("HH:mm")
+            return timeFormatter.format(Date(date*1000))
+        }
     }
 
 }
