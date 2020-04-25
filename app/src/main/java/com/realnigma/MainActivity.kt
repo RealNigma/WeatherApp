@@ -5,14 +5,17 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MotionEvent
 import android.view.View
 import android.widget.SearchView
 import android.widget.Toast
-import androidx.core.view.MotionEventCompat
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.realnigma.currentweather.CurrentWeatherAdapter
+import com.realnigma.currentweather.CurrentWeatherItemViewModel
+import com.realnigma.dagger.DaggerOpenWeatherAPIComponent
+import com.realnigma.dagger.OpenWeatherAPIModule
+import com.realnigma.forecast.ForecastAdapter
+import com.realnigma.forecast.ForecastItemViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.forecast_list_item.*
 
 class MainActivity : AppCompatActivity(), MainView {
 

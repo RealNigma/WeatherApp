@@ -1,6 +1,8 @@
-package com.realnigma
+package com.realnigma.dagger
 
 import com.google.gson.Gson
+import com.realnigma.OpenWeatherAPI
+import com.realnigma.OpenWeatherInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient

@@ -1,4 +1,4 @@
-package com.realnigma
+package com.realnigma.dagger
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

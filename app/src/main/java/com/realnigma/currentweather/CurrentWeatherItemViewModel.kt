@@ -1,4 +1,4 @@
-package com.realnigma
+package com.realnigma.currentweather
 
 data class CurrentWeatherItemViewModel (val temp : Int,
                                         val icon : String = "010d",

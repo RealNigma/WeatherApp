@@ -1,5 +1,8 @@
 package com.realnigma
 
+import com.realnigma.currentweather.CurrentWeatherItemViewModel
+import com.realnigma.forecast.ForecastItemViewModel
+
 interface MainView {
     fun showSpinner()
     fun hideSpinner()

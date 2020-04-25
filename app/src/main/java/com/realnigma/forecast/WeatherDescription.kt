@@ -1,4 +1,4 @@
-package com.realnigma
+package com.realnigma.forecast
 
 import com.google.gson.annotations.SerializedName
 

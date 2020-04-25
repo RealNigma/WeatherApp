@@ -1,10 +1,11 @@
-package com.realnigma
+package com.realnigma.currentweather
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.realnigma.R
 import kotlinx.android.synthetic.main.currentweather_item.view.*
 import kotlinx.android.synthetic.main.forecast_list_item.view.dateText
 import kotlinx.android.synthetic.main.forecast_list_item.view.degreeText
@@ -26,7 +27,9 @@ class CurrentWeatherAdapter() : RecyclerView.Adapter<CurrentWeatherAdapter.Curre
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrentWeatherViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.currentweather_item, parent, false)
-        return CurrentWeatherViewHolder(view)
+        return CurrentWeatherViewHolder(
+            view
+        )
     }
 
     override fun onBindViewHolder(holder: CurrentWeatherViewHolder, position: Int) {

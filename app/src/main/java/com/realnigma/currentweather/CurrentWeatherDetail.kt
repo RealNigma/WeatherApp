@@ -1,6 +1,7 @@
-package com.realnigma
+package com.realnigma.currentweather
 
 import com.google.gson.annotations.SerializedName
+import com.realnigma.forecast.WeatherDescription
 
 data class CurrentWeatherDetail(@SerializedName("dt") var  date: Long,
                                 @SerializedName("temp") var temp : Double,

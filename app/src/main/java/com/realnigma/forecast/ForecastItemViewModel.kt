@@ -1,4 +1,4 @@
-package com.realnigma
+package com.realnigma.forecast
 
 data class ForecastItemViewModel (val temp : Int,
                                   val icon : String = "010d",
